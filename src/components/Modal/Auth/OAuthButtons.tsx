@@ -3,9 +3,11 @@ import React, { useEffect } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { auth, firestore } from "@/firebase/clientApp";
 import { User } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, setDoc } from "firebase/firestore";
 
-const OAuthButtons: React.FC = () => {
+type OAuthButtonsProps = {};
+
+const OAuthButtons: React.FC<OAuthButtonsProps> = () => {
   const [signInWithGoogle, userCred, loading, error] =
     useSignInWithGoogle(auth);
 
@@ -15,7 +17,9 @@ const OAuthButtons: React.FC = () => {
   };
 
   useEffect(() => {
-    createUserDocument(userCred?.user);
+    if(userCred) {
+      createUserDocument(userCred?.user);
+    }
   }, [userCred]);
 
   return (
