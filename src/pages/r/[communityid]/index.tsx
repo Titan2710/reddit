@@ -1,4 +1,5 @@
 import { Community } from "@/atoms/communitiesAtom";
+import CreatePostLink from "@/components/Community/CreatePostLink";
 import Header from "@/components/Community/Header";
 import CommunityNotFound from "@/components/Community/NotFound";
 import PageContent from "@/components/layout/PageContent";
@@ -7,6 +8,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { GetServerSidePropsContext } from "next";
 import React from "react";
 import safeJsonStringify from "safe-json-stringify";
+import Posts from './../../../components/Posts/Posts';
 
 type CommunityPageProps = {
   communityData: Community;
@@ -26,26 +28,12 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
       <Header communityData={communityData} />
       <PageContent>
         <>
-          <div>
-            LHS
-          </div>
-          <div>
-            LHS
-          </div>
-          <div>
-            LHS
-          </div>
-          <div>
-            LHS
-          </div>
-          <div>
-            LHS
-          </div>
-          <div>
-            LHS
-          </div>
+          <CreatePostLink />
+          <Posts communityData={communityData}/>
         </>
-        <><div>RHS</div></>
+        <>
+          <div>RHS</div>
+        </>
       </PageContent>
     </>
   );
@@ -56,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const communityDocRef = doc(
       firestore,
       "communities",
-      context.query.communityid as string
+      context.query.communityId as string
     );
     const communityDoc = await getDoc(communityDocRef);
 
