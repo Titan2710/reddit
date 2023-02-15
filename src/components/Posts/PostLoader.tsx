@@ -1,5 +1,5 @@
 import { Stack, SkeletonText, Skeleton, Box } from '@chakra-ui/react';
-import * as React from 'react';
+import  React from 'react';
 
 type PostLoaderProps = {
 }

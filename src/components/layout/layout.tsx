@@ -5,7 +5,7 @@ const Layout: React.FC= ({ children }) => {
   return (
     <>
       <Navbar />
-      <main>{children && children}</main>
+      <main>{children}</main>
     </>
   );
 };
