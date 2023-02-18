@@ -22,6 +22,7 @@ import useSelectFile from './../../hooks/useSelectFile';
 
 type NewPostFormProps = {
   user: User;
+  communityImageURL?: string;
 };
 
 const formTabs = [
@@ -52,21 +53,25 @@ export type TabItem = {
   icon: typeof Icon.argument;
 };
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({
+  user,
+  communityImageURL,
+}) => {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
   const [textInputs, setTextInputs] = useState({
     title: "",
     body: "",
   });
-  const {selectedFile, setSelectedFile, onSelectFile} = useSelectFile()
+  const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const handleCreatePost = async () => {
     const { communityId } = router.query;
     const newPost: Post = {
       communityId: communityId as string,
+      communityImageURL: communityImageURL || "",
       creatorId: user.uid,
       creatorDisplayName: user.email!.split("@")[0],
       title: textInputs.title,
@@ -87,14 +92,13 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         await updateDoc(postDocRef, {
           imageURL: downloadURL,
         });
-      } 
+      }
       router.back();
     } catch (error: any) {
-      console.log("handleCreatePost error" , error.message)
+      console.log("handleCreatePost error", error.message);
       setError(true);
     }
     setLoading(false);
-   
   };
 
   const onTextChange = (
@@ -114,7 +118,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       <Flex width="100%">
         {formTabs.map((item) => (
           <TabItem
-          key={item.title}
+            key={item.title}
             item={item}
             selected={item.title === selectedTab}
             setSelectedTab={setSelectedTab}
@@ -140,10 +144,10 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         )}
       </Flex>
       {error && (
-        <Alert status='error'>
-        <AlertIcon />
-        <Text mr={2}>Error creating post</Text>
-      </Alert>
+        <Alert status="error">
+          <AlertIcon />
+          <Text mr={2}>Error creating post</Text>
+        </Alert>
       )}
     </Flex>
   );

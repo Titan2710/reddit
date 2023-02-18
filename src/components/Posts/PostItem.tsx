@@ -1,9 +1,10 @@
 import { Post } from "@/atoms/postsAtom";
-import { Alert, AlertIcon, Flex, Icon, Image, Skeleton, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Alert, AlertIcon, Flex, Icon, Image,  Skeleton, Spinner, Stack, Text } from "@chakra-ui/react";
 import moment from "moment";
 import React, { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsChat, BsDot } from "react-icons/bs";
+import { useRouter } from "next/router";
 import { FaReddit } from "react-icons/fa";
 import {
   IoArrowDownCircleOutline,
@@ -13,14 +14,16 @@ import {
   IoArrowUpCircleSharp,
   IoBookmarkOutline,
 } from "react-icons/io5";
+import Link from "next/link";
 
  type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
   userVoteValue?: number;
-  onVote: (post: Post, vote: number, communityId: string) => void;
+  onVote: (event: React.MouseEvent<SVGElement, MouseEvent> , post: Post, vote: number, communityId: string) => void;
   onDeletePost: (post: Post) => Promise<boolean>;
-  onSelectPost: () => void;
+  onSelectPost?: (post: Post) => void;
+  homePage?: boolean;
 };
 
 const PostItem: React.FC<PostItemProps> = ({
@@ -30,17 +33,24 @@ const PostItem: React.FC<PostItemProps> = ({
   onVote,
   onDeletePost,
   onSelectPost,
+  homePage,
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
   const [loadingDelete, setLoadingDelete ] = useState(false);
   const [error, setError] = useState(false);
+  const singlePostPage = !onSelectPost;
+  const router = useRouter();
 
-  const handleDelete = async () => {
+  const handleDelete = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
     setLoadingDelete(true);
     try{
       const success = await onDeletePost(post);
       if(!success) {
         throw new Error("failed to delete post")
+      }
+      if(singlePostPage) {
+        router.push(`/r/${post.communityId}`)
       }
     } catch(error: any) {
       setError(error.message)
@@ -52,19 +62,19 @@ const PostItem: React.FC<PostItemProps> = ({
     <Flex
       border="1px solid"
       bg="white"
-      borderColor="gray.300"
-      borderRadius={4}
-      _hover={{ borderColor: "gray.500" }}
-      cursor="pointer"
-      onClick={onSelectPost}
+      borderColor={singlePostPage ? "white" : "gray.300"}
+      borderRadius={singlePostPage? " 4px 4px 0px 0px" : "4px"}
+      _hover={{ borderColor: singlePostPage ? "none" : "gray.500" }}
+      cursor={singlePostPage ? "unset" : "pointer"}
+      onClick={() => onSelectPost && onSelectPost(post)}
     >
       <Flex
         direction="column"
         align="center"
-        bg="gray.100"
+        bg={singlePostPage ? "none" : "gray.100"}
         p={2}
         width="40px"
-        borderRadius={4}
+        borderRadius={singlePostPage ? '0' : "3px 0px 0px 3px"}
       >
         <Icon
           as={
@@ -72,7 +82,7 @@ const PostItem: React.FC<PostItemProps> = ({
           }
           color={userVoteValue === 1 ? "brand.100" : "gray.400"}
           fontSize={22}
-          onClick={() => onVote(post, 1 , post.communityId)}
+          onClick={(event) => onVote(event, post, 1 , post.communityId)}
           cursor="pointer"
         />
         <Text fontSize="9pt">{post.voteStatus}</Text>
@@ -84,7 +94,7 @@ const PostItem: React.FC<PostItemProps> = ({
           }
           color={userVoteValue === -1 ? "#4379ff" : "gray.400"}
           fontSize={22}
-          onClick={() => onVote(post, -1 , post.communityId)}
+          onClick={(event) => onVote(event, post, -1 , post.communityId)}
           cursor="pointer"
         />
       </Flex>
@@ -98,6 +108,19 @@ const PostItem: React.FC<PostItemProps> = ({
         <Stack spacing={1} p="10px">
           <Stack direction="row" spacing={0.6} align="center" fontSize="9pt">
             {/* Home page check */}
+            {homePage && (
+              <>
+                {post.communityImageURL ? (
+                  <Image src={post.communityImageURL} borderRadius="full" boxSize="18px" mr={2} />
+                ) : (
+                  <Icon as={FaReddit} fontSize="10pt" mr={1} color="blue.500" />
+                )}
+                <Link href={`r/${post.communityId}`}>
+                  <Text fontWeight={700} _hover={{ textDecoration: "underline"}} onClick={event => event.stopPropagation()}>{`r/${post.communityId}`}</Text>
+                </Link>
+                <Icon as={BsDot} color="gray.500" fontSize={8} />
+              </>
+            )}
             <Text>
               Posted by u/{post.creatorDisplayName} -{" "}
               {moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}
@@ -114,7 +137,7 @@ const PostItem: React.FC<PostItemProps> = ({
               )}
               <Image
                 src={post.imageURL}
-                maxWidth="460px"
+                maxWidth={{base: "400px" , lg: "460px"}}
                 alt="Post Image"
                 display={loadingImage ? "none" : "unset"}
                 onLoad={() => setLoadingImage(false)}

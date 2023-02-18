@@ -6,10 +6,10 @@ import PageContent from "@/components/layout/PageContent";
 import { firestore } from "@/firebase/clientApp";
 import { doc, getDoc } from "firebase/firestore";
 import { GetServerSidePropsContext } from "next";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import safeJsonStringify from "safe-json-stringify";
-import Posts from './../../../components/Posts/Posts';
-import { useSetRecoilState } from 'recoil';
+import Posts from "./../../../components/Posts/Posts";
+import { useSetRecoilState } from "recoil";
 import About from "@/components/Community/About";
 
 type CommunityPageProps = {
@@ -17,22 +17,18 @@ type CommunityPageProps = {
 };
 
 const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
-  const setCommunityStateValue = useSetRecoilState(communityState)
-  
+  const setCommunityStateValue = useSetRecoilState(communityState);
+
   if (!communityData) {
-    return (
-      <>
-        <CommunityNotFound />
-      </>
-    );
+    return <CommunityNotFound />;
   }
 
   useEffect(() => {
     setCommunityStateValue((prev) => ({
       ...prev,
       currentCommunity: communityData,
-    }))
-  }, [])
+    }));
+  }, [communityData]);
 
   return (
     <>
@@ -40,10 +36,10 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
       <PageContent>
         <>
           <CreatePostLink />
-          <Posts communityData={communityData}/>
+          <Posts communityData={communityData} />
         </>
         <>
-          <About communityData={communityData}/>
+          <About communityData={communityData} />
         </>
       </PageContent>
     </>

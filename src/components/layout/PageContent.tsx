@@ -7,7 +7,7 @@ type PageContentProps = {
 
 const PageContent: React.FC<PageContentProps> = ({ children }) => {
   return (
-    <Flex justify="center" p="10px 0px">
+    <Flex justify="center" p="10px 0px" position="relative" top="44px">
       <Flex
         justify="center"
         width="95%"

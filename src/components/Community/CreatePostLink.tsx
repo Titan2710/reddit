@@ -10,19 +10,24 @@ import { IoImageOutline } from "react-icons/io5";
 import { auth } from '@/firebase/clientApp';
 import { useSetRecoilState } from 'recoil';
 import { authModalState } from "@/atoms/authModalAtom";
+import useDirectory  from '@/hooks/useDirectory';
 
 const CreatePostLink: React.FC = () => {
     const router = useRouter();
     const[user] = useAuthState(auth);
     const setAuthModalModalState = useSetRecoilState(authModalState);
-
+    const { toggleMenuOpen } = useDirectory();
     const onClick= () => {
         if(!user) {
             setAuthModalModalState({ open: true, view: "login"});
             return;
         }
         const { communityId } = router.query;
-        router.push(`/r/${communityId}/submit`);
+        if(communityId) {
+          router.push(`/r/${communityId}/submit`);
+          return;
+        }
+        toggleMenuOpen();
     }
 
   return (

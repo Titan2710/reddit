@@ -28,6 +28,8 @@ import React, { useState } from "react";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from 'next/router';
+import useDirectory from "@/hooks/useDirectory";
 
 type CreateCommunityModalProps = {
   open: boolean;
@@ -44,6 +46,10 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const[success, setSuccess] = useState('');
+  const router = useRouter()
+  const { toggleMenuOpen } = useDirectory();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -93,11 +99,16 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
           isModerator: true,
         })
       })
+      handleClose();
+      toggleMenuOpen();
+      router.push(`r/${communityName}`)
     } catch (error: any) {
       setError(error.message);
     }
 
     setLoading(false);
+    setComplete(true);
+    setSuccess("You has successfully created a community.")
   };
 
   return (
@@ -147,6 +158,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               <Text fontSize="9pt" color="red" pt={1}>
                 {error}
               </Text>
+              {complete && (
+                <Text fontSize="9pt" color="green" pt={1}>
+                  {success}
+                </Text>
+              )}
               <Box mt={4} mb={4}>
                 <Text fontWeight={600} fontSize={15}>
                   Community Type
