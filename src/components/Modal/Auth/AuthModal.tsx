@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import AuthInputs from "./AuthInputs";
 import OAuthButtons from "./OAuthButtons";
 import { useAuthState } from "react-firebase-hooks/auth";

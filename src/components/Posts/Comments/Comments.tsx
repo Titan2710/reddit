@@ -21,7 +21,7 @@ import {
   where,
   writeBatch,
 } from "firebase/firestore";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import CommentInput from "./CommentInput";
 import { useSetRecoilState } from "recoil";
 import CommentItem, { Comment } from "./CommentItem";

@@ -6,7 +6,6 @@ import { BsLink45Deg, BsMic, BsPause } from "react-icons/bs";
 import Tabitem from "./Tabitem";
 import TextInputs from "./PostForm/TextInputs";
 import ImageUpload from "./PostForm/ImageUpload";
-import { Post } from "@/atoms/postsAtom";
 import { User } from "firebase/auth";
 import { useRouter } from "next/router";
 import { BiPoll } from "react-icons/bi";
@@ -14,7 +13,6 @@ import {
   addDoc,
   collection,
   serverTimestamp,
-  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 import { firestore, storage } from "@/firebase/clientApp";

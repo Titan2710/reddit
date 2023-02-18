@@ -1,17 +1,13 @@
-import { defaultMenuItem, DirectoryMenuItem, directoryMenuState } from "@/atoms/directoryMenuAtom";
+import { DirectoryMenuItem, directoryMenuState } from "@/atoms/directoryMenuAtom";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useRecoilState } from 'recoil';
 import { useRecoilValue } from 'recoil';
 import { communityState} from '@/atoms/communitiesAtom';
 import { FaReddit } from "react-icons/fa";
-import { User } from 'firebase/auth';
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/firebase/clientApp";
 
 const useDirectory = () => {
     const router = useRouter();
-      const [user] = useAuthState(auth);
     const communityStateValue = useRecoilValue(communityState);
     const [directoryState, setDirectoryState] = useRecoilState(directoryMenuState);
 

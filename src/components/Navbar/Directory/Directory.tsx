@@ -3,16 +3,12 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Menu,
   MenuButton,
-  Button,
   MenuList,
-  MenuItem,
   Icon,
   Flex,
   Image,
   Text,
-  MenuDivider,
 } from "@chakra-ui/react";
-import { TiHome } from "react-icons/ti";
 import Communities from "./Communities";
 import useDirectory from "./../../../hooks/useDirectory";
 

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { auth, firestore } from "@/firebase/clientApp";
 import { User } from "firebase/auth";
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 type OAuthButtonsProps = {};
 
