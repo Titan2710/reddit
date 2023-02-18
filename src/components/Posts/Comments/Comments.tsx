@@ -140,7 +140,6 @@ const Comments: React.FC<CommentsProps> = ({
     if (!selectedPost) return;
 
     getPostComments();
-    // eslint-disable-next-line
   }, [selectedPost]); 
 
   return (

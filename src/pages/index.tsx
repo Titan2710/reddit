@@ -119,17 +119,17 @@ const Home: NextPage = () => {
       }));
     };
   
-  }, [user, postStateValue.posts]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [user, postStateValue.posts]);
 
   useEffect(() => {
     if (communityStateValue.mySnippets.length) buildUserHomeFeed();
 
-  }, [communityStateValue.snippetFetched]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [communityStateValue.snippetFetched]);
 
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
 
-  }, [user, loadingUser]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [user, loadingUser]);
 
   return (
     <PageContent>

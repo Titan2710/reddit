@@ -39,7 +39,8 @@ const PostPage: React.FC = () => {
       fetchPost(pid as string);
     }
     return;
-  }, [router.query, postStateValue.selectedPost]);
+
+  }, [router.query, postStateValue.selectedPost]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PageContent>

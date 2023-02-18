@@ -176,7 +176,7 @@ const usePosts = () => {
     if (!user || !currentCommunity?.id) return;
 
     getCommunityPostVotes(currentCommunity?.id);
-    // eslint-disable-next-line
+  
   }, [user, currentCommunity]);
 
   useEffect(() => {
@@ -186,7 +186,7 @@ const usePosts = () => {
         postVotes: [],
       }));
     }
-    // eslint-disable-next-line
+  
   }, [user]);
 
   return {

@@ -6,9 +6,11 @@ import { GrAdd } from "react-icons/gr";
 import { useRecoilValue } from "recoil";
 import MenuListItem from "./MenuListItem";
 import { FaReddit } from "react-icons/fa";
+import { auth } from "../../../firebase/clientApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Communities: React.FC = () => {
- 
+  // const [user] = useAuthState(auth);
   const [open, setOpen] = useState(false);
   const mySnippets = useRecoilValue(communityState).mySnippets;
 

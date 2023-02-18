@@ -20,7 +20,7 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import useSelectFile from "./../../hooks/useSelectFile";
 
 type NewPostFormProps = {
-  user: User;
+  user: User ;
   communityImageURL?: string;
 };
 
