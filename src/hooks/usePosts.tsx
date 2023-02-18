@@ -60,6 +60,7 @@ const usePosts = () => {
           postId: post.id!,
           communityId,
           voteValue: vote,
+          community: ""
         };
 
         batch.set(postVoteRef, newVote);

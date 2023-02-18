@@ -20,6 +20,7 @@ export type PostVote = {
     postId: string;
     community: string;
     voteValue: number;
+    communityId: string;
 }
 
 interface PostState {
