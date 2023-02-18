@@ -34,6 +34,7 @@ const Navbar: React.FC = () => {
         <Image
           src="/images/redditText.svg"
           height="46px"
+          alt="img"
           display={{ base: "none", md: "unset" }}
         />
       </Flex>

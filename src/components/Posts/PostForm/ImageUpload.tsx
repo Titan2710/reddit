@@ -20,7 +20,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     <Flex direction="column" justify="center" align="center" width="100%">
       {selectedFile ? (
         <>
-          <Image src={selectedFile} maxWidth="400px" maxHeight="400px" />
+          <Image src={selectedFile} alt="img" maxWidth="400px" maxHeight="400px" />
           <Stack direction="row" mt={4}>
             <Button height="28px" onClick={() => setSelectedTab("Post")}>
               Back to Post
@@ -58,7 +58,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
               hidden
               onChange={onSelectImage}
             />
-            <img src={selectedFile} />
+            <Image src={selectedFile} alt="img" />
           </Flex>
         </>
       )}

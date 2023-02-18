@@ -46,7 +46,6 @@ const useDirectory = () => {
                     icon: FaReddit,
                     iconColor: "blue.500",
             }
-
             }))
         }
 
