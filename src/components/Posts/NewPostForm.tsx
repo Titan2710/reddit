@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Icon, Text } from "@chakra-ui/react";
 import { IoDocumentText } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
-import { BsLink45Deg, BsMic, BsPoll } from "react-icons/bs";
+import { BsLink45Deg, BsMic, BsPause } from "react-icons/bs";
 import TabItem from "./Tabitem";
 import TextInputs from "./PostForm/TextInputs";
 import ImageUpload from "./PostForm/ImageUpload";
@@ -40,7 +40,7 @@ const formTabs = [
   },
   {
     title: "Poll",
-    icon: BsPoll,
+    icon: BsPause,
   },
   {
     title: "Talk",
