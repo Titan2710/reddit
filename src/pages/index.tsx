@@ -109,29 +109,27 @@ const Home: NextPage = () => {
     }
   };
 
- useEffect(() => {
-   if (user && postStateValue.posts.length) getUserPostVotes();
+  useEffect(() => {
+    if (user && postStateValue.posts.length) getUserPostVotes();
 
-   return () => {
-     setPostStateValue((prev) => ({
-       ...prev,
-       postVotes: [],
-     }));
-   };
-   // eslint-disable-next-line
- }, [user, postStateValue.posts]);
+    return () => {
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: [],
+      }));
+    };
+  
+  }, [user, postStateValue.posts]);// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (communityStateValue.mySnippets.length) buildUserHomeFeed();
-    // eslint-disable-next-line
-  }, [communityStateValue.snippetFetched]);
+
+  }, [communityStateValue.snippetFetched]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
-    // eslint-disable-next-line
-  }, [user, loadingUser]);
 
- 
+  }, [user, loadingUser]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PageContent>
@@ -161,11 +159,11 @@ const Home: NextPage = () => {
         )}
       </>
       <>
-      <Stack spacing={5}>
-        <Recommendations />
-        <Premium />
-        <PersonalHome />
-      </Stack>
+        <Stack spacing={5}>
+          <Recommendations />
+          <Premium />
+          <PersonalHome />
+        </Stack>
       </>
     </PageContent>
   );
