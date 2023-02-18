@@ -107,7 +107,6 @@ const PostItem: React.FC<PostItemProps> = ({
       )}
         <Stack spacing={1} p="10px">
           <Stack direction="row" spacing={0.6} align="center" fontSize="9pt">
-            {/* Home page check */}
             {homePage && (
               <>
                 {post.communityImageURL ? (
