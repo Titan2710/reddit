@@ -3,7 +3,7 @@ import { Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Icon, Text } from
 import { IoDocumentText } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
 import { BsLink45Deg, BsMic, BsPause } from "react-icons/bs";
-import TabItem from "./TabItem";
+import Tabitem from "./Tabitem";
 import TextInputs from "./PostForm/TextInputs";
 import ImageUpload from "./PostForm/ImageUpload";
 import { Post } from "@/atoms/postsAtom";
@@ -117,7 +117,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
       <Flex width="100%">
         {formTabs.map((item) => (
-          <TabItem
+          <Tabitem
             key={item.title}
             item={item}
             selected={item.title === selectedTab}

@@ -1,12 +1,13 @@
 {
-    "cSpell.ignoreWords": [
-        "Chakra",
-        "Videocam",
-        "firestore",
-        "fontsource",
-        "googlelogo",
-        "redditor",
-        "signup"
-    ],
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+  "cSpell.ignoreWords": [
+    "Chakra",
+    "Tabitem",
+    "Videocam",
+    "firestore",
+    "fontsource",
+    "googlelogo",
+    "redditor",
+    "signup"
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
