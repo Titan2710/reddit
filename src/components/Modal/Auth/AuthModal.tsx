@@ -19,20 +19,18 @@ import ResetPassword from "./ResetPassword";
 
 const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
-  const [user, loading, error] = useAuthState(auth)
+  const [user, loading, error] = useAuthState(auth);
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     setModalState((prev) => ({
       ...prev,
       open: false,
     }));
-  });
-
+  };
 
   useEffect(() => {
-    if(user) handleClose();
-
-  }, [user, handleClose]);
+    if (user) handleClose();
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -58,15 +56,17 @@ const AuthModal: React.FC = () => {
               justify="center"
               width="70%"
             >
-              {modalState.view === 'login' || modalState.view === 'signup' ? (
+              {modalState.view === "login" || modalState.view === "signup" ? (
                 <>
-                  <OAuthButtons /> 
-                  <Text color="gray.500" fontWeight={700}>OR</Text>
-                  <AuthInputs/>
+                  <OAuthButtons />
+                  <Text color="gray.500" fontWeight={700}>
+                    OR
+                  </Text>
+                  <AuthInputs />
                 </>
-              ) : <ResetPassword />}
-
-
+              ) : (
+                <ResetPassword />
+              )}
             </Flex>
           </ModalBody>
         </ModalContent>
