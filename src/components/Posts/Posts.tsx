@@ -46,6 +46,7 @@ const Posts: React.FC<PostProps> = ({ communityData }) => {
 
   useEffect(() => {
     getPosts();
+    // eslint-disable-next-line
   }, [communityData]);
 
   return (

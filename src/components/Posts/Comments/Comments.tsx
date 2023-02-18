@@ -21,7 +21,7 @@ import {
   where,
   writeBatch,
 } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CommentInput from "./CommentInput";
 import { useSetRecoilState } from "recoil";
 import CommentItem, { Comment } from "./CommentItem";
@@ -42,7 +42,7 @@ const Comments: React.FC<CommentsProps> = ({
   const [fetchLoading, setFetchLoading] = useState(true);
   const [createLoading, setCreateLoading] = useState(false);
   const setPostState = useSetRecoilState(postState);
-  const [loadingDeleteId, setLoadingDeleteId] = useState('')
+  const [loadingDeleteId, setLoadingDeleteId] = useState("");
 
   const onCreateComment = async (comment: string) => {
     setCreateLoading(true);
@@ -92,12 +92,12 @@ const Comments: React.FC<CommentsProps> = ({
     try {
       const batch = writeBatch(firestore);
 
-      const commentDocRef = doc(firestore, "comments", comment.id)
+      const commentDocRef = doc(firestore, "comments", comment.id);
       batch.delete(commentDocRef);
 
       const postDocRef = doc(firestore, "posts", selectedPost?.id!);
       batch.update(postDocRef, {
-        numberOfComments: increment(-1)
+        numberOfComments: increment(-1),
       });
 
       await batch.commit();
@@ -105,17 +105,16 @@ const Comments: React.FC<CommentsProps> = ({
       setPostState((prev) => ({
         ...prev,
         selectedPost: {
-         ...prev.selectedPost,
-         numberOfComments: prev.selectedPost?.numberOfComments! - 1,
-        } as Post
-      }))
+          ...prev.selectedPost,
+          numberOfComments: prev.selectedPost?.numberOfComments! - 1,
+        } as Post,
+      }));
 
       setComments((prev) => prev.filter((item) => item.id !== comment.id));
-
     } catch (error) {
-      console.log("onDeleteComment error" , error)
+      console.log("onDeleteComment error", error);
     }
-    setLoadingDeleteId('');
+    setLoadingDeleteId("");
   };
 
   const getPostComments = async () => {
@@ -141,7 +140,8 @@ const Comments: React.FC<CommentsProps> = ({
     if (!selectedPost) return;
 
     getPostComments();
-  }, [selectedPost]);
+    // eslint-disable-next-line
+  }, [selectedPost]); 
 
   return (
     <Box bg="white" borderRadius="0px 0px 4px 4px" p={2}>

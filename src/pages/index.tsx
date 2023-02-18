@@ -110,22 +110,25 @@ const Home: NextPage = () => {
   };
 
  useEffect(() => {
-    if (user && postStateValue.posts.length) getUserPostVotes();
+   if (user && postStateValue.posts.length) getUserPostVotes();
 
-    return () => {
-      setPostStateValue((prev) => ({
-        ...prev,
-        postVotes: [],
-      }));
-    };
-  }, [user, postStateValue.posts]);
-  
+   return () => {
+     setPostStateValue((prev) => ({
+       ...prev,
+       postVotes: [],
+     }));
+   };
+   // eslint-disable-next-line
+ }, [user, postStateValue.posts]);
+
   useEffect(() => {
     if (communityStateValue.mySnippets.length) buildUserHomeFeed();
+    // eslint-disable-next-line
   }, [communityStateValue.snippetFetched]);
 
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
+    // eslint-disable-next-line
   }, [user, loadingUser]);
 
  
